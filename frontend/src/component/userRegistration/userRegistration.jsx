@@ -49,7 +49,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='First Name'
-                                width="100%"
+                                style={{width: "100%"}}
                                 size="small"
                             />
                         </Grid>
@@ -61,7 +61,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='Last Name'
-                                width="100%"
+                                style={{width: "100%"}}
                                 size="small"
                             />
                         </Grid>
@@ -73,7 +73,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='Email'
-                                width="100%"
+                                style={{width: "100%"}}
                                 size="small"
                             />
                         </Grid>
@@ -85,7 +85,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='User Name'
-                                width="100%"
+                                style={{width: "100%"}}
                                 size="small"
                             />
                         </Grid>
@@ -97,7 +97,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='Password'
-                                width="100%"
+                                style={{width: "100%"}}
                                 type='password'
                                 size="small"
                             />
@@ -109,7 +109,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='City'
-                                width="100%"
+                                style={{width: "100%"}}
                                 size="small"
                             />
                         </Grid>
@@ -120,7 +120,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='Street'
-                                width="100%"
+                                style={{width: "100%"}}
                                 size="small"
                             />
                         </Grid>
@@ -131,7 +131,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='Street No'
-                                width="100%"
+                                style={{width: "100%"}}
                                 size="small"
                             />
                         </Grid>
@@ -142,7 +142,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='Zip Code'
-                                width="100%"
+                                style={{width: "100%"}}
                                 size="small"
                             />
                         </Grid>
@@ -153,7 +153,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='Lat Value'
-                                width="100%"
+                                style={{width: "100%"}}
                                 size="small"
                             />
                         </Grid>
@@ -164,7 +164,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='Long Value'
-                                width="100%"
+                                style={{width: "100%"}}
                                 size="small"
                             />
                         </Grid>
@@ -175,7 +175,7 @@ export default function UserRegistration() {
                             <TxtField
                                 variant="outlined"
                                 label='Mobile Number'
-                                width="100%"
+                                style={{width: "100%"}}
                                 size="small"
                             />
                         </Grid>

@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import "./login.css"
 import TxtField from "../common/textFields/txtField";
 import CommonBtn from "../common/button";
+import {Link} from 'react-router-dom'
 
 export default function Login(props) {
     return (
@@ -32,7 +33,7 @@ export default function Login(props) {
                     <TxtField
                         varient='outlined'
                         label="Enter Your User Name"
-                        width='80%'
+                        style={{width:'80%'}}
                         className='textField'
                         type='text'
                     />
@@ -46,7 +47,7 @@ export default function Login(props) {
                     <TxtField
                         varient='outlined'
                         label="Enter Your Password"
-                        width='80%'
+                        style={{width:'80%'}}
                         className='textField'
                         type='password'
                     />
@@ -59,13 +60,25 @@ export default function Login(props) {
                     alignItems: "center",
                     justifyContent: 'center'
                 }}>
-                    <CommonBtn
-                        variant='outlined'
-                        label='Login'
-                        size='large'
-                        color='primary'
-                        style={{width: "40%"}}
-                    />
+                    <Link to="/dashboard"
+                          style={{textDecoration: "none", width: "40%"}}
+                          onClick={(e) => {
+                              console.log('clicked')
+                              let nav = document.getElementById("navBarContainer");
+                              nav.style.display = 'flex'
+                              console.log(nav)
+                              let content = document.getElementById("contentContainer");
+                              content.style.height = '90%'
+                          }}
+                    >
+                        <CommonBtn
+                            variant='outlined'
+                            label='Login'
+                            size='large'
+                            color='primary'
+                            style={{width: "100%"}}
+                        />
+                    </Link>
                 </Grid>
                 <Grid item xs={12} sx={{
                     position: "relative",
@@ -79,11 +92,11 @@ export default function Login(props) {
                         style={{paddingLeft: '10px'}}
                     >Create new user account ?
                         <span>
-                                <a href="/userRegistration"
-                                   style={{textDecoration: "none", paddingLeft: "10px"}}
+                                <Link to="/userRegistration"
+                                      style={{textDecoration: "none", paddingLeft: "10px"}}
                                 >
                                     click here
-                                </a>
+                                </Link>
                             </span>
                     </p>
                 </Grid>
