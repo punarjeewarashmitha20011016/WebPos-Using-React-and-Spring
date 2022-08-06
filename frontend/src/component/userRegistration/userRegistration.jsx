@@ -52,7 +52,7 @@ export default function UserRegistration() {
                         >
                             <TxtField
                                 variant="outlined"
-                                label='First Name'
+                                label='Email'
                                 width="100%"
                             />
                         </Grid>
@@ -63,7 +63,7 @@ export default function UserRegistration() {
                         >
                             <TxtField
                                 variant="outlined"
-                                label='First Name'
+                                label='User Name'
                                 width="100%"
                             />
                         </Grid>
@@ -74,8 +74,9 @@ export default function UserRegistration() {
                         >
                             <TxtField
                                 variant="outlined"
-                                label='First Name'
+                                label='Password'
                                 width="100%"
+                                type='password'
                             />
                         </Grid>
 
@@ -85,7 +86,7 @@ export default function UserRegistration() {
                         >
                             <TxtField
                                 variant="outlined"
-                                label='First Name'
+                                label='Street'
                                 width="100%"
                             />
                         </Grid>
@@ -95,7 +96,7 @@ export default function UserRegistration() {
                         >
                             <TxtField
                                 variant="outlined"
-                                label='First Name'
+                                label='Street No'
                                 width="100%"
                             />
                         </Grid>
@@ -105,7 +106,7 @@ export default function UserRegistration() {
                         >
                             <TxtField
                                 variant="outlined"
-                                label='First Name'
+                                label='Zip Code'
                                 width="100%"
                             />
                         </Grid>
@@ -115,7 +116,27 @@ export default function UserRegistration() {
                         >
                             <TxtField
                                 variant="outlined"
-                                label='First Name'
+                                label='Lat Value'
+                                width="100%"
+                            />
+                        </Grid>
+                        <Grid
+                            item
+                            xs={6}
+                        >
+                            <TxtField
+                                variant="outlined"
+                                label='Long Value'
+                                width="100%"
+                            />
+                        </Grid>
+                        <Grid
+                            item
+                            xs={6}
+                        >
+                            <TxtField
+                                variant="outlined"
+                                label='Mobile Number'
                                 width="100%"
                             />
                         </Grid>
