@@ -2,7 +2,7 @@ import {TextField} from "@mui/material";
 import React from "react";
 
 export default function TxtField(props) {
-    const {classes,variant,label,id,width,type} = props;
+    const {classes,variant,label,id,width,type,height,size} = props;
     return (
         <TextField
             id={id}
@@ -10,6 +10,7 @@ export default function TxtField(props) {
             variant={variant}
             sx={{width:{width}}}
             type={type}
+            size={size}
         />
     )
 }
