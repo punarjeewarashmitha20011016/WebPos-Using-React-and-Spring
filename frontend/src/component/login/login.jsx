@@ -63,7 +63,6 @@ export default function Login(props) {
                     <Link to="/dashboard"
                           style={{textDecoration: "none", width: "40%"}}
                           onClick={(e) => {
-                              console.log('clicked')
                               let nav = document.getElementById("navBarContainer");
                               nav.style.display = 'flex'
                               console.log(nav)

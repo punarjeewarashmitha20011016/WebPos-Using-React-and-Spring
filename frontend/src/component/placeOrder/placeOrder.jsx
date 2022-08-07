@@ -113,7 +113,7 @@ export default function PlaceOrder(props) {
                               border: "1px solid black"
                           }}>
                         <CommonTable
-                            tblRows={["Order Id", "Item Title", "ItemQty"]}
+                            tblRows={["Order Id", "Item Title", "ItemQty","Qty On Hand","Discount","Total"]}
                         />
                     </Grid>
 
