@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import React, {Component} from "react"
 import PropTypes from "prop-types";
 import Button from '@mui/material/Button';
 
-class CommonBtn extends Component{
+class CommonBtn extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -34,14 +34,14 @@ class CommonBtn extends Component{
     handleButtonClick = (event) => {
         const {onClick, disabled} = this.props;
 
-        if(disabled) return;
-         
+        if (disabled) return;
+
         onClick && onClick({event});
     }
 
     renderChildren = (label, children) => {
-        if(label) return label;
-        if(children)  return children;
+        if (label) return label;
+        if (children) return children;
     }
 
     render() {
@@ -57,9 +57,10 @@ class CommonBtn extends Component{
             startIcon,
             endIcon,
             style,
+            id,
         } = this.props;
 
-        return(
+        return (
             <Button
                 className={className}
                 size={size}
@@ -70,10 +71,12 @@ class CommonBtn extends Component{
                 type={type}
                 onClick={this.handleButtonClick}
                 style={style}
+                id={id}
             >
                 {this.renderChildren(label, children)}
             </Button>
         )
     }
 }
+
 export default CommonBtn
