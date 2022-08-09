@@ -1,17 +1,21 @@
 import React, {Component} from "react";
 import "./userRegistration.css"
-import axios from "axios";
 import CommonBtn from "../common/button";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import CommonTable from "../common/table/table";
-
+import UserService from '../../services/user/userService'
+import {styled} from "@mui/material/styles";
+import TableCell, {tableCellClasses} from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import $ from 'jquery'
 export default class UserRegistration extends Component {
     constructor(props) {
         super(props);
         this.state = {
             formData: {
+                id: "",
                 firstName: '',
                 lastName: '',
                 email: '',
@@ -30,16 +34,19 @@ export default class UserRegistration extends Component {
             severity: '',
 
             data: [],
+            usersData: this.fetchUsers(),
             btnLabel: 'save',
-            btnColor: 'primary'
+            btnColor: 'primary',
+            commonTableRef: React.createRef(),
+            tableRows: [],
         }
     }
 
-    submitUser = async () => {
+    /*submitUser = async () => {
         let formData = this.state.formData;
 
         if (this.state.btnLabel === "save") {
-            /*let res = await CustomerService.postCustomer(formData);
+            /!*let res = await CustomerService.postCustomer(formData);
 
             console.log(res)    //print the promise
 
@@ -57,9 +64,9 @@ export default class UserRegistration extends Component {
                     message: res.response.data.message,
                     severity: 'error'
                 });
-            }*/
+            }*!/
         } else {
-            /*let res = await CustomerService.putCustomer(formData);
+            /!*let res = await CustomerService.putCustomer(formData);
             if (res.status === 200) {
                 this.setState({
                     alert: true,
@@ -76,9 +83,9 @@ export default class UserRegistration extends Component {
                     message: res.response.data.message,
                     severity: 'error'
                 });
-            }*/
+            }*!/
         }
-    };
+    };*/
 
     render() {
         return (
@@ -108,7 +115,7 @@ export default class UserRegistration extends Component {
                             justifyContent: "center",
                         }}
                     >
-                        <ValidatorForm ref="form" className="pt-2" onSubmit={this.submitUser()}
+                        <ValidatorForm ref="form" className="pt-2"
                                        style={{
                                            width: "100%",
                                            height: "100%",
@@ -124,6 +131,26 @@ export default class UserRegistration extends Component {
                                 spacing={2}
                                 sx={{height: "70%", display: "flex"}}
                             >
+                                <Grid
+                                    item
+                                    xs={3}
+                                >
+                                    <TextValidator
+                                        id="outlinedbasic"
+                                        placeholder="Id"
+                                        variant="outlined"
+                                        size="small"
+                                        style={{width: '100%'}}
+                                        value={this.state.formData.id}
+                                        onChange={(e) => {
+                                            let formData = this.state.formData
+                                            formData.id = e.target.value
+                                            this.setState({formData})
+                                        }}
+                                        validators={['required', 'matchRegexp:^[0-9]{1,}$']}
+                                    />
+                                </Grid>
+
                                 <Grid
                                     item
                                     xs={3}
@@ -249,25 +276,6 @@ export default class UserRegistration extends Component {
                                 >
                                     <TextValidator
                                         id="outlinedbasic"
-                                        placeholder="Street"
-                                        variant="outlined"
-                                        size="small"
-                                        style={{width: '100%'}}
-                                        value={this.state.formData.street}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.street = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                        validators={['required', 'matchRegexp:^[A-z0-9 /-]{4,}$']}
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    xs={3}
-                                >
-                                    <TextValidator
-                                        id="outlinedbasic"
                                         placeholder="Street No"
                                         variant="outlined"
                                         size="small"
@@ -361,6 +369,25 @@ export default class UserRegistration extends Component {
                                         validators={['required', 'matchRegexp:^[0-9]{10}$']}
                                     />
                                 </Grid>
+                                <Grid
+                                    item
+                                    xs={12}
+                                >
+                                    <TextValidator
+                                        id="outlinedbasic"
+                                        placeholder="Street"
+                                        variant="outlined"
+                                        size="small"
+                                        style={{width: '100%'}}
+                                        value={this.state.formData.street}
+                                        onChange={(e) => {
+                                            let formData = this.state.formData
+                                            formData.street = e.target.value
+                                            this.setState({formData})
+                                        }}
+                                        validators={['required', 'matchRegexp:^[A-z0-9 /-]{4,}$']}
+                                    />
+                                </Grid>
                             </Grid>
                         </ValidatorForm>
                     </Grid>
@@ -404,10 +431,10 @@ export default class UserRegistration extends Component {
                                     id="saveBtnUserId"
                                     disabled={undefined}
                                     onClick={async (e) => {
-                                        let response = await saveUser()
-                                        if (response.status == 200) {
-                                            console.log(response.data)
-                                        }
+                                        /*await this.fetchUsers()
+                                        console.log(this.state.message)*/
+                                        await this.postUsers()
+                                        await this.fetchUsers();
                                     }}
                                 />
 
@@ -428,24 +455,112 @@ export default class UserRegistration extends Component {
                             height='100%'
                             /*rows = list*/
                             tblRows={['First Name', 'Last Name', 'Email', 'User Name', "Password", "City", "Street", "Street No", "Zip Code", "Lat Value", "Long Value", "Mobile No"]}
+                            id='userTableId'
+                            ref={this.state.commonTableRef}
+                            dataList={this.state.tableRows}
                         />
                     </Grid>
                 </Grid>
             </Box>
         )
     }
-}
 
+    fetchUsers = async () => {
+        let response = await UserService.fetchUsers();
+        console.log("response = " + response.data[0].address.city)
+        console.log("length = " + response.data.length)
+        let users = response.data;
+        console.log("Response Data = " + response.data)
+        let usersData = this.state.usersData
+        usersData = users;
+        console.log("Users Data = " + usersData)
 
-let saveUser = async () => {
-    const promise = new Promise((resolve, reject) => {
-        axios.get("http://localhost:8080/BackEnd_war_exploded/customer/getAll")
-            .then(response => {
-                return resolve(response)
-            }).catch((er) => {
-            console.log('error: ' + er);
-            return resolve(er)
+        await this.setState({
+            usersData: usersData
+        }, function () {
+            console.log("State = " + this.state.usersData)
         })
-    })
-    return await promise
+        console.log('working')
+        this.setDataToTableRowsInUser();
+    }
+
+    postUsers = async () => {
+        let response = await UserService.postUser(this.state.formData);
+    }
+    putUsers = async () => {
+        let response = await UserService.postUser(this.state.formData, this.state.formData.id);
+    }
+    deleteUsers = async () => {
+        let response = await UserService.postUser(this.state.formData.id);
+    }
+
+    setDataToTableRowsInUser = async () => {
+        console.log('setDataToTableRowsInUser')
+        let tableRows = [];
+
+        const StyledTableCell = styled(TableCell)(({theme}) => ({
+            [`&.${tableCellClasses.head}`]: {
+                backgroundColor: theme.palette.common.black,
+                color: theme.palette.common.white,
+            },
+            [`&.${tableCellClasses.body}`]: {
+                fontSize: 14,
+            },
+        }));
+
+        const StyledTableRow = styled(TableRow)(({theme}) => ({
+            '&:nth-of-type(odd)': {
+                backgroundColor: theme.palette.action.hover,
+            },
+            // hide last border
+            '&:last-child td, &:last-child th': {
+                border: 0,
+            },
+        }));
+
+        let data = this.state.usersData;
+        for (let i = 0; i < data.length; i++) {
+            console.log('data ================================================== '+data.toLocaleString())
+            /*let row = <StyledTableRow id='styledTableRow'></StyledTableRow>*/
+            console.log("data[i].id = "+data[i].name.firstname);
+            let row = <tr></tr>;
+            let col1 = <td>{data[i].id}</td>
+            let col2 = <td>{data[i].name.firstname}</td>
+            let col3 = <td>{data[i].name.lastname}</td>
+            let col4 = <td>{data[i].email}</td>
+            let col5 = <td>{data[i].username}</td>
+            let col6 = <td>{data[i].password}</td>
+            let col7 = <td>{data[i].address.city}</td>
+            let col8 = <td>{data[i].address.street}</td>
+            let col9 = <td>{data[i].address.number}</td>
+            let col10 = <td>{data[i].address.zipcode}</td>
+            let col11 = <td>{data[i].address.geolocation.lat}</td>
+            let col12 = <td>{data[i].address.geolocation.long}</td>
+            let col13 = <td>{data[i].phone}</td>
+            console.log("Row = "+$(row).children())
+            $(row).append(col1)
+            $(row).append(col2)
+            $(row).append(col3)
+            $(row).append(col4)
+            $(row).append(col5)
+            $(row).append(col6)
+            $(row).append(col7)
+            $(row).append(col8)
+            $(row).append(col9)
+            $(row).append(col10)
+            $(row).append(col11)
+            $(row).append(col12)
+            $(row).append(col13)
+            tableRows.push(row);
+            this.setState({
+                tableRows:tableRows
+            })
+            console.log("Rows = "+tableRows)
+        }
+        console.log('data = '+data[0])
+
+        return tableRows;
+    }
 }
+
+

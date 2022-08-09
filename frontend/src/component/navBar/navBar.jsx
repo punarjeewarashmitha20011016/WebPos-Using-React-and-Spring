@@ -25,7 +25,9 @@ export default function NavBar(props) {
                     </Link>
                 </Grid>
                 <Grid item xs={3} sx={{height: "100%", display: "flex", justifyContent: "end", alignItems: "center"}}>
-                    <Link to="/manageProducts" style={{textDecoration: "none", marginRight: '5%', width: "30%"}}>
+                    <Link to="/manageProducts" style={{textDecoration: "none", marginRight: '5%', width: "30%"}}
+
+                    >
                         <CommonBtn
                             variant="contained"
                             size="large"

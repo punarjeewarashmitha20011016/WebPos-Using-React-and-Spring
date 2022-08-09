@@ -1,30 +1,25 @@
-import React from "react";
-import LoginPage from "../pages/login/login";
+import Home from "../pages/Home/home";
+import { Fragment } from 'react';
+import Login from "../pages/Login/login";
+import Product from "../pages/Product/product";
 import {Route, Routes} from "react-router-dom";
-import UserRegistrationPage from "../pages/userRegistration/userRegistration";
-import '../index.css'
-import NavBar from "../component/navBar/navBar";
-import DashboardPage from "../pages/dashboard/dashBoard";
-import ManageProductsPage from "../pages/manageProducts/manageProducts";
-import PlaceOrderPage from "../pages/placeOrder/placeOrder";
+import Cart from "../pages/Cart/cart";
+import User from "../pages/User/user";
+import ResponsiveAppBar from "../pages/AppBar/index"
 
 function App() {
-    return (
-        <div className="container">
-            <div id='navBarContainer' className="navBarContainer">
-                <NavBar/>
-            </div>
-            <div id="contentContainer" className="content">
-                <Routes>
-                    <Route exact path="/" element={<LoginPage/>}/>
-                    <Route exact path="/userRegistration" element={<UserRegistrationPage/>}/>
-                    <Route exact path="/dashboard" element={<DashboardPage/>}/>
-                    <Route exact path="/manageProducts" element={<ManageProductsPage/>}/>
-                    <Route exact path="/placeOrder" element={<PlaceOrderPage/>}/>
-                </Routes>
-            </div>
-        </div>
-    );
+  return (
+    <Routes>
+      <Route path="/" element={<ResponsiveAppBar />}>
+        <Route index element={<Home />} />
+        <Route path="product" element={<Product />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="user" element={<User/>} />
+        <Route path="login" element={<Login />} />
+      </Route>
+    </Routes>
+
+  );
 }
 
 export default App;

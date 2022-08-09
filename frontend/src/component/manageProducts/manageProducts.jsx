@@ -1,11 +1,11 @@
 import Box from "@mui/joy/Box";
 import React, {Component} from "react";
 import Grid from "@mui/material/Grid";
-import TxtField from "../common/textFields/txtField";
 import CommonComboBox from "../common/comboBox/comboBox";
 import Input from '@mui/material/Input';
 import CommonBtn from "../common/button";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
+import UserService from "../../services/user/userService";
 
 export default class ManageProducts extends Component {
     constructor(props) {
@@ -108,14 +108,19 @@ export default class ManageProducts extends Component {
                                       style={{height: "80%"}}>
                                     <Grid item xs={6} style={{
                                         height: "20%",
-                                        position:"relative"
+                                        position: "relative"
                                     }}>
                                         <TextValidator
                                             id="outlinedbasic"
                                             placeholder="Title"
                                             variant="outlined"
                                             size='large'
-                                            style={{width:"80%",inset:"0 0 0 0",margin:"auto",position:"absolute"}}
+                                            style={{
+                                                width: "80%",
+                                                inset: "0 0 0 0",
+                                                margin: "auto",
+                                                position: "absolute"
+                                            }}
                                             value={this.state.formData.title}
                                             onChange={(e) => {
                                                 let formData = this.state.formData
@@ -127,14 +132,19 @@ export default class ManageProducts extends Component {
                                     </Grid>
                                     <Grid item xs={6} style={{
                                         height: "20%",
-                                        position:"relative",
+                                        position: "relative",
                                     }}>
                                         <TextValidator
                                             id="outlinedbasic"
                                             placeholder="Price"
                                             variant="outlined"
                                             size='large'
-                                            style={{width:"80%",inset:"0 0 0 0",margin:"auto",position:"absolute"}}
+                                            style={{
+                                                width: "80%",
+                                                inset: "0 0 0 0",
+                                                margin: "auto",
+                                                position: "absolute"
+                                            }}
                                             value={this.state.formData.price}
                                             type='number'
                                             onChange={(e) => {
@@ -158,14 +168,19 @@ export default class ManageProducts extends Component {
                                     </Grid>
                                     <Grid item xs={6} style={{
                                         height: "20%",
-                                        position:"relative",
+                                        position: "relative",
                                     }}>
                                         <TextValidator
                                             id="outlinedbasic"
                                             placeholder="Description"
                                             variant="outlined"
                                             size='large'
-                                            style={{width:"80%",inset:"0 0 0 0",margin:"auto",position:"absolute"}}
+                                            style={{
+                                                width: "80%",
+                                                inset: "0 0 0 0",
+                                                margin: "auto",
+                                                position: "absolute"
+                                            }}
                                             value={this.state.formData.description}
                                             onChange={(e) => {
                                                 let formData = this.state.formData
@@ -244,6 +259,9 @@ export default class ManageProducts extends Component {
                                         size="medium"
                                         style={{width: "60%", display: 'flex', marginLeft: "3%"}}
                                         color='primary'
+                                        onClick={(e) => {
+                                            /*this.postItems(this.state.formData);*/
+                                        }}
                                     />
                                 </Grid>
                             </Grid>
@@ -252,5 +270,31 @@ export default class ManageProducts extends Component {
                 </Grid>
             </Box>
         )
+    }
+
+    fetchItems = async () => {
+        let response = await UserService.fetchUsers();
+        console.log("response = " + response.data[0].address.city)
+        console.log("length = " + response.data.length)
+        let users = response.data;
+        let usersData = this.state.usersData
+        usersData = users;
+        console.log(usersData)
+
+        await this.setState({
+            usersData: usersData
+        }, function () {
+            console.log(this.state.usersData)
+        })
+    }
+
+    postItems = async () => {
+        let response = await UserService.postUser(this.state.formData);
+    }
+    putItems = async () => {
+        let response = await UserService.postUser(this.state.formData);
+    }
+    deleteItems = async () => {
+        let response = await UserService.postUser(this.state.formData);
     }
 }
