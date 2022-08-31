@@ -1,4 +1,4 @@
-import axios from "../../axios";
+import axios from "../axios";
 
 class UserService{
     postUser = async (data) => {
@@ -57,6 +57,7 @@ class UserService{
     };
 
     putUser = async (data) => {
+        console.log(data);
         const promise = new Promise((resolve, reject) => {
            axios.put('users', data)
            .then((res) => {
@@ -70,6 +71,7 @@ class UserService{
    };
 
     deleteUser = async (params) => {
+        console.log(params);
         const promise = new Promise((resolve, reject) => {
            axios.delete('users', {params: params})
            .then((res) => {
